@@ -73,7 +73,8 @@ function browserSettings(name: string): BrowserSettings {
 const agamaServer = process.env.AGAMA_SERVER || "http://localhost";
 const agamaPassword = process.env.AGAMA_PASSWORD || "nots3cr3t";
 const agamaBrowser = process.env.AGAMA_BROWSER || "firefox";
-const agamaSlowMo = parseInt(process.env.AGAMA_SLOWMO || "0");
+#const agamaSlowMo = parseInt(process.env.AGAMA_SLOWMO || "0");
+const agamaSlowMo = parseInt("50");
 const agamaHeadless = booleanEnv("AGAMA_HEADLESS", true);
 const agamaInstall = booleanEnv("AGAMA_INSTALL", true);
 
