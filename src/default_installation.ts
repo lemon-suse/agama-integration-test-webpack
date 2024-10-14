@@ -120,7 +120,7 @@ function getInt(value: string) {
 // see https://github.com/tj/commander.js
 program
   .description("Run a simple Agama integration test")
-  .option("-u, --url <url>", "Agama server URL", "http://localhost")
+  .option("-u, --url <url>", "Agama server URL", "https://localhost")
   .option("-p, --password <password>", "Agama login password", "nots3cr3t")
   .addOption(new Option("-b, --browser <browser>", "Browser used for running the test")
     .choices(["firefox", "chrome", "chromium"])
