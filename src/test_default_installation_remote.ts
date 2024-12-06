@@ -28,14 +28,3 @@ const options = parse((cmd) =>
         .option("--dasd", "Prepare DASD storage (the default is not to prepare it)"));
 
 describe("Agama test", function () { test_init(options); login(options.password); if (options.install) performInstallation(); });
-
-describe("Installation with default values", function () {
-    test_init(options);
-
-    logIn(options.password);
-    if (options.productId !== "none") productSelection(options.productId);
-    createFirstUser("Bernhard M. Wiedemann", "bernhard", options.password);
-    setRootPassword(options.password);
-    if (options.dasd) prepareDasdStorage();
-    if (options.install) performInstallation();
-});

@@ -22,4 +22,8 @@ export function performInstallation() {
         const congratulation = new CongratulationPage(page);
         await congratulation.wait(40 * 60 * 1000);
     }, 40 * 60 * 1000);
+
+    it("should finish installation remote worker", async function () { 
+        await page.locator("h2::-p-text('Congratulations!')").setTimeout(40 * 60 * 1000).wait(); 
+    }, 40 * 60 * 1000); 
 }
