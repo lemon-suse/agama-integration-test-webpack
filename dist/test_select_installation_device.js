@@ -2,35 +2,6 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/checks/encryption.ts":
-/*!**********************************!*\
-  !*** ./src/checks/encryption.ts ***!
-  \**********************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.enableEncryption = enableEncryption;
-const helpers_1 = __webpack_require__(/*! ../lib/helpers */ "./src/lib/helpers.ts");
-const sidebar_page_1 = __webpack_require__(/*! ../pages/sidebar_page */ "./src/pages/sidebar_page.ts");
-const storage_encryption_page_1 = __webpack_require__(/*! ../pages/storage_encryption_page */ "./src/pages/storage_encryption_page.ts");
-const storage_page_1 = __webpack_require__(/*! ../pages/storage_page */ "./src/pages/storage_page.ts");
-function enableEncryption(password) {
-    (0, helpers_1.it)("should enable encryption", async function () {
-        const storage = new storage_page_1.StoragePage(helpers_1.page);
-        const storageEncryption = new storage_encryption_page_1.StorageEncryptionPage(helpers_1.page);
-        const sidebar = new sidebar_page_1.SidebarPage(helpers_1.page);
-        await sidebar.goToStorage();
-        await storage.enableEncryption();
-        await storageEncryption.encrypt(password);
-        await storage.verifyEncryptionEnabled();
-    });
-}
-
-
-/***/ }),
-
 /***/ "./src/checks/installation.ts":
 /*!************************************!*\
   !*** ./src/checks/installation.ts ***!
@@ -97,6 +68,34 @@ function logIn(password) {
         const loginAsRoot = new login_as_root_page_1.LoginAsRootPage(helpers_1.page);
         await loginAsRoot.fillPassword(password);
         await loginAsRoot.logIn();
+    });
+}
+
+
+/***/ }),
+
+/***/ "./src/checks/select_installation_device.ts":
+/*!**************************************************!*\
+  !*** ./src/checks/select_installation_device.ts ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.selectInstallationDevice = selectInstallationDevice;
+const helpers_1 = __webpack_require__(/*! ../lib/helpers */ "./src/lib/helpers.ts");
+const sidebar_page_1 = __webpack_require__(/*! ../pages/sidebar_page */ "./src/pages/sidebar_page.ts");
+const storage_select_installation_device_page_1 = __webpack_require__(/*! ../pages/storage_select_installation_device_page */ "./src/pages/storage_select_installation_device_page.ts");
+const storage_page_1 = __webpack_require__(/*! ../pages/storage_page */ "./src/pages/storage_page.ts");
+function selectInstallationDevice() {
+    (0, helpers_1.it)("should select installation device", async function () {
+        const storage = new storage_page_1.StoragePage(helpers_1.page);
+        const StorageSelectInstallationDevice = new storage_select_installation_device_page_1.SelectInstallationDevicePage(helpers_1.page);
+        const sidebar = new sidebar_page_1.SidebarPage(helpers_1.page);
+        await sidebar.goToStorage();
+        await storage.changeInstallationDevice();
+        await StorageSelectInstallationDevice.createLvmDevice();
     });
 }
 
@@ -587,37 +586,6 @@ exports.SidebarWithRegistrationPage = SidebarWithRegistrationPage;
 
 /***/ }),
 
-/***/ "./src/pages/storage_encryption_page.ts":
-/*!**********************************************!*\
-  !*** ./src/pages/storage_encryption_page.ts ***!
-  \**********************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.StorageEncryptionPage = void 0;
-class StorageEncryptionPage {
-    page;
-    encryptTheSystemCheckbox = () => this.page.locator("label[class='pf-v5-c-switch'] > input[type='checkbox']");
-    passwordInput = () => this.page.locator("#password");
-    passwordConfirmationInput = () => this.page.locator("#passwordConfirmation");
-    acceptButton = () => this.page.locator("button::-p-text(Accept)");
-    constructor(page) {
-        this.page = page;
-    }
-    async encrypt(password) {
-        await this.encryptTheSystemCheckbox().click();
-        await this.passwordInput().fill(password);
-        await this.passwordConfirmationInput().fill(password);
-        await this.acceptButton().click();
-    }
-}
-exports.StorageEncryptionPage = StorageEncryptionPage;
-
-
-/***/ }),
-
 /***/ "./src/pages/storage_page.ts":
 /*!***********************************!*\
   !*** ./src/pages/storage_page.ts ***!
@@ -651,10 +619,39 @@ exports.StoragePage = StoragePage;
 
 /***/ }),
 
-/***/ "./src/test_full_disk_encryption.ts":
-/*!******************************************!*\
-  !*** ./src/test_full_disk_encryption.ts ***!
-  \******************************************/
+/***/ "./src/pages/storage_select_installation_device_page.ts":
+/*!**************************************************************!*\
+  !*** ./src/pages/storage_select_installation_device_page.ts ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.SelectInstallationDevicePage = void 0;
+class SelectInstallationDevicePage {
+    page;
+    createLvm = () => this.page.locator("label[class='pf-v5-c-radio__input'] > input[type='radio']");
+    selectRow0 = () => this.page.locator("label[class='pf-v5-c-table__td pf-v5-c-table__check'] > input[type='checkbox']");
+    acceptButton = () => this.page.locator("button::-p-text(Accept)");
+    constructor(page) {
+        this.page = page;
+    }
+    async createLvmDevice() {
+        await this.createLvm().click();
+        await this.selectRow0().click();
+        await this.acceptButton().click();
+    }
+}
+exports.SelectInstallationDevicePage = SelectInstallationDevicePage;
+
+
+/***/ }),
+
+/***/ "./src/test_select_installation_device.ts":
+/*!************************************************!*\
+  !*** ./src/test_select_installation_device.ts ***!
+  \************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -670,13 +667,13 @@ const cmdline_1 = __webpack_require__(/*! ./lib/cmdline */ "./src/lib/cmdline.ts
 const helpers_1 = __webpack_require__(/*! ./lib/helpers */ "./src/lib/helpers.ts");
 const login_1 = __webpack_require__(/*! ./checks/login */ "./src/checks/login.ts");
 const installation_1 = __webpack_require__(/*! ./checks/installation */ "./src/checks/installation.ts");
-const encryption_1 = __webpack_require__(/*! ./checks/encryption */ "./src/checks/encryption.ts");
+const select_installation_device_1 = __webpack_require__(/*! ./checks/select_installation_device */ "./src/checks/select_installation_device.ts");
 // parse options from the command line
 const options = (0, cmdline_1.parse)((cmd) => cmd.option("--install", "Proceed to install the system (the default is not to install it)"));
-(0, node_test_1.describe)("Installation with Full Disk Encryption (FDE)", function () {
+(0, node_test_1.describe)("Installation with LVM)", function () {
     (0, helpers_1.test_init)(options);
     (0, login_1.logIn)(options.password);
-    (0, encryption_1.enableEncryption)(options.password);
+    (0, select_installation_device_1.selectInstallationDevice)();
     if (options.install)
         (0, installation_1.performInstallation)();
 });
@@ -1077,7 +1074,7 @@ module.exports = require("zlib");
 /******/ 	// the startup function
 /******/ 	__webpack_require__.x = () => {
 /******/ 		// Load entry module and return exports
-/******/ 		var __webpack_exports__ = __webpack_require__.O(undefined, ["vendor"], () => (__webpack_require__(__webpack_require__.s = "./src/test_full_disk_encryption.ts")))
+/******/ 		var __webpack_exports__ = __webpack_require__.O(undefined, ["vendor"], () => (__webpack_require__(__webpack_require__.s = "./src/test_select_installation_device.ts")))
 /******/ 		__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 		return __webpack_exports__;
 /******/ 	};
@@ -1181,7 +1178,7 @@ module.exports = require("zlib");
 /******/ 		// object to store loaded chunks
 /******/ 		// "1" means "loaded", otherwise not loaded yet
 /******/ 		var installedChunks = {
-/******/ 			"test_full_disk_encryption": 1
+/******/ 			"test_select_installation_device": 1
 /******/ 		};
 /******/ 		
 /******/ 		__webpack_require__.O.require = (chunkId) => (installedChunks[chunkId]);
@@ -1233,4 +1230,4 @@ module.exports = require("zlib");
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=test_full_disk_encryption.js.map
+//# sourceMappingURL=test_select_installation_device.js.map

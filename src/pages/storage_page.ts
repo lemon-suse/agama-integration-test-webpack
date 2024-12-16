@@ -3,6 +3,7 @@ import { type Page } from "puppeteer-core";
 export class StoragePage {
     private readonly page: Page;
     private readonly enableButton = () => this.page.locator("button::-p-text(Enable)");
+    private readonly changeButton = () => this.page.locator("button::-p-text(Change)");
     private readonly enabledDiv = () => this.page.locator("div::-p-text(enabled)");
 
     constructor(page: Page) {
@@ -11,6 +12,10 @@ export class StoragePage {
 
     async enableEncryption() {
         await this.enableButton().click();
+    }
+
+    async changeInstallationDevice() {
+        await this.changeButton().click();
     }
 
     async verifyEncryptionEnabled() {
