@@ -14,7 +14,8 @@ import { logIn } from "./checks/login";
 import { performInstallation } from "./checks/installation";
 import { productSelection, productSelectionWithLicense } from "./checks/product_selection";
 import { prepareDasdStorage } from "./checks/storage_dasd";
-import { setupRootPassword } from "./checks/root_authentication";
+//import { setupRootPassword, setupRootPasswordAtALaterStage } from "./checks/root_authentication";
+import { setupRootPasswordAtALaterStage } from "./checks/root_authentication";
 
 // parse options from the command line
 const options = parse((cmd) =>
@@ -34,7 +35,8 @@ logIn(options.password);
 if (options.productId !== "none")
   if (options.acceptLicense) productSelectionWithLicense(options.productId);
   else productSelection(options.productId);
-setupRootPassword(options.rootPassword);
+setupRootPasswordAtALaterStage(options.rootPassword);
+//setupRootPassword(options.rootPassword);
 if (options.registrationCode) enterRegistration(options.registrationCode);
 createFirstUser(options.password);
 if (options.dasd) prepareDasdStorage();

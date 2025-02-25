@@ -1115,6 +1115,7 @@ const login_1 = __webpack_require__(/*! ./checks/login */ "./src/checks/login.ts
 const installation_1 = __webpack_require__(/*! ./checks/installation */ "./src/checks/installation.ts");
 const product_selection_1 = __webpack_require__(/*! ./checks/product_selection */ "./src/checks/product_selection.ts");
 const storage_dasd_1 = __webpack_require__(/*! ./checks/storage_dasd */ "./src/checks/storage_dasd.ts");
+//import { setupRootPassword, setupRootPasswordAtALaterStage } from "./checks/root_authentication";
 const root_authentication_1 = __webpack_require__(/*! ./checks/root_authentication */ "./src/checks/root_authentication.ts");
 // parse options from the command line
 const options = (0, cmdline_1.parse)((cmd) => cmd
@@ -1130,7 +1131,8 @@ if (options.productId !== "none")
         (0, product_selection_1.productSelectionWithLicense)(options.productId);
     else
         (0, product_selection_1.productSelection)(options.productId);
-(0, root_authentication_1.setupRootPassword)(options.rootPassword);
+(0, root_authentication_1.setupRootPasswordAtALaterStage)(options.rootPassword);
+//setupRootPassword(options.rootPassword);
 if (options.registrationCode)
     (0, registration_1.enterRegistration)(options.registrationCode);
 (0, first_user_1.createFirstUser)(options.password);
