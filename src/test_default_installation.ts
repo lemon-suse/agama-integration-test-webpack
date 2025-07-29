@@ -51,7 +51,7 @@ logIn(options.password);
 if (options.productId !== "none")
   if (options.acceptLicense) productSelectionWithLicense(options.productId);
   else productSelection(options.productId);
-ensureProductConfigurationStarted();
+if (options.productId !== "none") ensureProductConfigurationStarted();
 if (options.registrationCode)
   if (options.instRegisterUrl) enterRegistrationRegUrl(options.registrationCode);
   else enterRegistration(options.registrationCode);
