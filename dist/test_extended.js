@@ -227,6 +227,7 @@ function enterRegistration(code) {
         const sidebar = new sidebar_page_1.SidebarWithRegistrationPage(helpers_1.page);
         const productRegistration = new registration_page_1.ProductRegistrationPage(helpers_1.page);
         await sidebar.goToRegistration();
+        await productRegistration.provideRegistrationCode();
         await productRegistration.fillCode(code);
         await productRegistration.register();
     });
@@ -968,7 +969,7 @@ function LicenseAcceptable(Base) {
         licenseAcceptanceCheckbox = () => this.page.locator("::-p-text(I have read and)");
         licenseOpenButton = () => this.page.locator("::-p-text(license)");
         licenseCloseButton = () => this.page.locator("::-p-text(Close)");
-        licenseText = () => this.page.locator("::-p-text(SUSE(R) End User License Agreement for Beta Software)");
+        licenseText = () => this.page.locator("::-p-text(End User License Agreement for SUSE Software)");
         async acceptLicense() {
             await this.licenseAcceptanceCheckbox().click();
         }

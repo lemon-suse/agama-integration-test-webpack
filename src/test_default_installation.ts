@@ -12,11 +12,7 @@ import { Option } from "commander";
 import { createFirstUser } from "./checks/first_user";
 import { editRootUser } from "./checks/root_authentication";
 import { ensureProductConfigurationStarted } from "./checks/configuration_started";
-import {
-  enterRegistration,
-  enterRegistrationHa,
-  enterRegistrationRegUrl,
-} from "./checks/registration";
+import { enterRegistration, enterRegistrationHa } from "./checks/registration";
 import { logIn } from "./checks/login";
 import { performInstallation } from "./checks/installation";
 import { productSelection, productSelectionWithLicense } from "./checks/product_selection";
@@ -51,9 +47,7 @@ if (options.productId !== "none")
   if (options.acceptLicense) productSelectionWithLicense(options.productId);
   else productSelection(options.productId);
 ensureProductConfigurationStarted();
-if (options.registrationCode)
-  if (options.instRegisterUrl) enterRegistrationRegUrl(options.registrationCode);
-  else enterRegistration(options.registrationCode);
+if (options.registrationCode) enterRegistration(options.registrationCode);
 if (options.registrationCodeHa) enterRegistrationHa(options.registrationCodeHa);
 if (options.patterns) selectPatterns(options.patterns);
 createFirstUser(options.password);

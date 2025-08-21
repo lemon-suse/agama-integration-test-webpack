@@ -14,6 +14,7 @@ export function enterRegistration(code: string) {
     const productRegistration = new ProductRegistrationPage(page);
 
     await sidebar.goToRegistration();
+    await productRegistration.provideRegistrationCode();
     await productRegistration.fillCode(code);
     await productRegistration.register();
   });
