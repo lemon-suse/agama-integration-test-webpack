@@ -1,4 +1,4 @@
-import { it, page, waitOnFile } from "../lib/helpers";
+import { it, page, sleep, waitOnFile } from "../lib/helpers";
 import fs from "fs";
 import assert from "node:assert/strict";
 import { OptionsTogglePage } from "../pages/options_toggle_page";
@@ -10,6 +10,7 @@ export async function downloadLogs() {
     await new OptionsTogglePage(page).downloadLogs();
     await waitOnFile(filePath);
 
+    await sleep(10000);
     const fileSize = fs.statSync(filePath).size;
     assert(fileSize > 0, "Agama Logfile is empty.");
   });
