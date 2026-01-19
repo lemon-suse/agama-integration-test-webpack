@@ -52,8 +52,7 @@ function CustomRegistrable<TBase extends GConstructor<RegistrationBasePage>>(Bas
     private readonly registrationServerButton = () =>
       this.page.locator("::-p-aria(Registration server)");
 
-    private readonly registrationServerCustomOption = () =>
-      this.page.locator("::-p-aria(Custom Register using a custom registration server)");
+    private readonly registrationServerCustomOption = () => this.page.locator("::-p-aria(Custom)");
 
     private readonly registrationServerSCCOption = () =>
       this.page.locator("::-p-aria(SUSE Customer Center (SCC) Register using SUSE server)");
