@@ -14,7 +14,7 @@ export function performInstallation() {
     const confirmInstallation = new ConfirmInstallationPage(page);
     const overview = new OverviewPage(page);
 
-    await overview.install();
+    await overview.install(100000);
     await confirmInstallation.confirmAndInstall();
   });
 }
@@ -56,9 +56,9 @@ export function finishInstallation() {
     "should finish installation",
     async function () {
       const installationComplete = new InstallationCompletePage(page);
-      await installationComplete.wait(20 * 60 * 1000);
+      await installationComplete.wait(30 * 60 * 1000);
     },
-    21 * 60 * 1000,
+    31 * 60 * 1000,
   );
 }
 

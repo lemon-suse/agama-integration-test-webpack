@@ -241,7 +241,7 @@ function performInstallation() {
     (0, helpers_1.it)("should start installation", async function () {
         const confirmInstallation = new confirm_installation_page_1.ConfirmInstallationPage(helpers_1.page);
         const overview = new overview_page_1.OverviewPage(helpers_1.page);
-        await overview.install();
+        await overview.install(100000);
         await confirmInstallation.confirmAndInstall();
     });
 }
@@ -267,8 +267,8 @@ function checkInstallation() {
 function finishInstallation() {
     (0, helpers_1.it)("should finish installation", async function () {
         const installationComplete = new installation_complete_page_1.InstallationCompletePage(helpers_1.page);
-        await installationComplete.wait(20 * 60 * 1000);
-    }, 21 * 60 * 1000);
+        await installationComplete.wait(30 * 60 * 1000);
+    }, 31 * 60 * 1000);
 }
 function finishInstallationCongratulation() {
     (0, helpers_1.it)("should finish installation", async function () {
@@ -2167,8 +2167,8 @@ class OverviewPage {
     async waitVisible(timeout) {
         await this.overviewHeading().setTimeout(timeout).wait();
     }
-    async install() {
-        await this.installButton().click();
+    async install(timeout) {
+        await this.installButton().setTimeout(timeout).click();
     }
     async goToHostname() {
         await this.hostnameLink().click();

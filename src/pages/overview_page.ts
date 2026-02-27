@@ -23,8 +23,8 @@ export class OverviewPage {
     await this.overviewHeading().setTimeout(timeout).wait();
   }
 
-  async install() {
-    await this.installButton().click();
+  async install(timeout: number) {
+    await this.installButton().setTimeout(timeout).click();
   }
 
   async goToHostname() {
