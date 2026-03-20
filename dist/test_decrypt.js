@@ -1050,7 +1050,9 @@ const util_1 = __importDefault(__webpack_require__(/*! util */ "util"));
 const strict_1 = __importDefault(__webpack_require__(/*! node:assert/strict */ "node:assert/strict"));
 const child_process_1 = __webpack_require__(/*! child_process */ "child_process");
 const storage_warning_out_of_sync_page_1 = __webpack_require__(/*! ../pages/storage_warning_out_of_sync_page */ "./src/pages/storage_warning_out_of_sync_page.ts");
-function verifyStorageOutOfSync() { }
+function verifyStorageOutOfSync() {
+    console.log("In check verifyStorageOutOfSync");
+}
 function verifyStorageOutOfSyncWithSidebar() {
     (0, helpers_1.it)("should verify storage out of sync popup", async function () {
         const storageWarningOutOfSyncPage = new storage_warning_out_of_sync_page_1.StorageWarningOutOfSyncPage(helpers_1.page);
