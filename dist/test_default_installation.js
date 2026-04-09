@@ -1480,7 +1480,7 @@ function getTextContent(locator) {
 }
 async function waitUntilOverlaySettled() {
     const selector = '[role="alert"].agm-main-content-overlay';
-    const appeared = await exports.page.waitForSelector(selector, { visible: true, timeout: 500 })
+    const appeared = await exports.page.waitForSelector(selector, { visible: true, timeout: 2000 })
         .catch(() => null);
     if (appeared) {
         await exports.page.waitForSelector(selector, { hidden: true });
