@@ -2,7 +2,7 @@ import { type Page } from "puppeteer-core";
 
 export class ConfigureLvmVolumeGroupPage {
   private readonly page: Page;
-  private readonly acceptButton = () => this.page.locator("button::-p-text(Accept)");
+  private readonly acceptButton = () => this.page.locator("::-p-aria(Accept[role='button'])");
   constructor(page: Page) {
     this.page = page;
   }
