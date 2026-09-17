@@ -4,9 +4,9 @@ export class StorageWarningOutOfSyncPage {
   private readonly page: Page;
 
   readonly configurationOutOfSyncWarningAlert = () =>
-    this.page.locator("::-p-text(Configuration out of sync)");
+    this.page.locator("::-p-aria(Configuration out of sync)");
 
-  private readonly reloadButton = () => this.page.locator("::-p-text(Reload now)");
+  private readonly reloadButton = () => this.page.locator("::-p-aria(Reload now)");
 
   constructor(page: Page) {
     this.page = page;
