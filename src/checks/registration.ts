@@ -1,4 +1,4 @@
-import { it, page, getTextContent } from "../lib/helpers";
+import { it, sleep, page, getTextContent } from "../lib/helpers";
 import { OverviewPage } from "../pages/overview_page";
 import { RegistrationSCCPage, RegistrationCustomPage } from "../pages/registration_page";
 import { ExtensionRegistrationPHubPage } from "../pages/extension_registration_phub_page";
@@ -35,6 +35,7 @@ export function enterProductRegistration({
 
     await overview.goToRegistration();
 
+    await sleep(2000);
     if (use_custom) {
       productRegistration = new RegistrationCustomPage(page);
       if (url) {
