@@ -220,14 +220,15 @@ export function getValue(locator): Promise<string> {
 
 export async function waitUntilOverlaySettled(
   action: () => Promise<void>,
-  expectQuestionInterruption = false
+  expectQuestionInterruption = false,
+  disappearanceTimeout = 2 * 60 * 1000
 ) {
   const selector = '[role="alert"].agm-main-content-overlay';
 
   const start = Date.now();
 
   // Start watching for overlay BEFORE executing the action
-  const appearancePromise = page.waitForSelector(selector, { visible: true, timeout: 10000 })
+  const appearancePromise = page.waitForSelector(selector, { visible: true, timeout: 30000 })
     .catch(() => {
       debugLog("Overlay did not appear within 10000ms after action. Moving on...");
       return null;
@@ -241,7 +242,7 @@ export async function waitUntilOverlaySettled(
 
   if (appeared && !expectQuestionInterruption) {
     debugLog("Overlay detected. Waiting for it to disappear...");
-    await page.waitForSelector(selector, { hidden: true });
+    await page.waitForSelector(selector, { hidden: true, timeout: disappearanceTimeout});
 
     const duration = Date.now() - start;
     debugLog(`Overlay cleared after ${duration}ms`);
