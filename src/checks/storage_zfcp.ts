@@ -1,4 +1,4 @@
-import { it, page, waitUntilOverlaySettled } from "../lib/helpers";
+import { it, page, waitUntilOverlaySettled, sleep } from "../lib/helpers";
 import { HeaderPage } from "../pages/header_page";
 import { OverviewPage } from "../pages/overview_page";
 import { SidebarPage } from "../pages/sidebar_page";
@@ -20,7 +20,9 @@ export function prepareZfcpStorage() {
     await overview.goToStorage();
     await storageNoDeviceFound.activateZfcpDisks();
     await storageZfcpControllersNotActivated.activateControllers();
+    console.log("before storageZfcpActivateControllers.select");
     await storageZfcpActivateControllers.select(["0.0.fa00", "0.0.fc00"]);
+    console.log("after storageZfcpActivateControllers.select");
     await waitUntilOverlaySettled(() => storageZfcpActivateControllers.accept(), true);
     await waitUntilOverlaySettled(() => storageActivateMultipath.yes());
     await header.goToInstallation();
@@ -37,13 +39,19 @@ export function prepareZfcpStorageWithSidebar() {
 
       await sidebar.goToStorage();
       await storage.activateZfcpDisks();
+      console.log("before activateDevice fa");
       await zfcp.activateDevice("0.0.fa00");
       await zfcp.activateDevice("0.0.fc00");
+      console.log("after activateDevice fb");
       await zfcp.back();
+      console.log("after back");
+      sleep(10000);
       await zfcp.activateMultipath();
+      console.log("after activateMultipath");
       // Workaround to wait for page to load, sometimes workers take more than 60 seconds to load storage
       await storage.waitForElement("::-p-text(Activate zFCP disks)", 100000);
+      console.log("after Activate zFCP disks");
     },
-    3 * 60 * 1000,
+    4 * 60 * 1000,
   );
 }

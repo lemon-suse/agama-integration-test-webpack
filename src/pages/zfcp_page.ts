@@ -25,12 +25,16 @@ export class ZfcpPage {
   async activateDevice(channelId: string) {
     const rowActions = channelId === "0.0.fa00" ? this.faDisk() : this.fcDisk();
     await rowActions.click();
-    await this.activateDisk().click();
-    await this.zfcpDisk(channelId).setTimeout(90000).wait();
+    console.log("after rowActions.click");
+    await this.zfcpDisk(channelId).setTimeout(6000).wait();
+    // await this.activateDisk().click();
+    console.log("after activateDisk().click()");
+    await this.zfcpDisk(channelId).setTimeout(80000).wait();
+    console.log("after zfcpDisk(channelId).setTimeout(90000).wait");
   }
 
   async activateMultipath() {
-    await this.enableMultipath().setTimeout(40000).click();
+    await this.enableMultipath().setTimeout(30000).click();
   }
 
   async back() {
