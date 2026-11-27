@@ -19,7 +19,7 @@ export class StoragePage {
     this.page.locator("::-p-aria(Reset to defaults[role='menuitem'])");
 
   private readonly expandPartitionsButton = () =>
-    this.page.locator("::-p-aria(New partitions will be created[role='button'])");
+    this.page.locator("::-p-text(New partitions will be created)");
 
   private readonly editRootPartitionMenuitem = () =>
     this.page.locator("::-p-aria(Edit /'][role='menuitem'])");
